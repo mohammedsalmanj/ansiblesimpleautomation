@@ -23,6 +23,8 @@ become_ask_pass=False
 # This is an incomplete command. It is usually used to run an Ansible playbook, but no specific playbook is provided.
 #ansible-playbook db.yaml       
  # This command runs an Ansible playbook named "db.yaml."
+ #sudo touch /var/log/ansible.log
+ #sudo chown ubuntu.ubuntu /var/log/ansible.log
 #sudo chown ubuntu.ubuntu /var/log/ansible.log 
  # Change the ownership of the "/var/log/ansible.log" file to the "ubuntu" user and group using sudo.
 #ansible-playbook db.yaml       
