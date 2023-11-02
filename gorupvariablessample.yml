@@ -1,0 +1,58 @@
+
+
+
+# cat vars_precedence.yaml create user in all env
+---
+- name: understand vars
+  hosts: all
+  become: yes
+  vars:
+    USRNM: playuser
+    COMM: Variable from playbook
+
+  tasks:
+    - name: create user
+      ansible.builtin.user:
+        name: "{{ USRNM }}"
+        comment: "{{ COMM }}"
+      register: usrout
+
+    - debug:
+        var: usrout
+
+
+
+#scenario from outside playbook
+#exercise9# cat group_vars/all
+
+#USRNM: commonuser
+#COMM: Variable from groupvars_all file
+
+9# cat group_vars/all
+
+
+USRNM: commonuser
+COMM: Variable from groupvars_all file
+####################################
+
+cat vars_precedence.yaml
+---
+- name: understand vars
+  hosts: all
+  become: yes
+    #vars:
+    #USRNM: playuser
+    #COMM: Variable from playbook
+
+  tasks:
+    - name: create user
+      ansible.builtin.user:
+        name: "{{ USRNM }}"
+        comment: "{{ COMM }}"
+      register: usrout
+
+    - debug:
+        var: usrout.name
+
+    - debug:
+        var: usrout.comment
