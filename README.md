@@ -66,3 +66,45 @@ ansible web01 -m ping -i inventory
  ansible dc_oregon -m ping -i inventory
  ansible all -m ping -i inventory
  ansible 'web*' -m ping -i inventory
+
+
+
+
+ # Ansible Project README
+
+This README provides essential Ansible commands for managing your hosts and configuring services. Make sure to replace placeholders with actual values specific to your environment.
+
+## Basic Ansible Commands
+
+
+# Test Host Connectivity:
+ansible all -m ping -i inventory
+
+# Installing the Apache HTTP Server (`httpd`):
+
+# On a Specific Host (e.g., "web01"):
+ansible web01 -m ansible.builtin.yum -a "name=httpd state=present" -i inventory
+
+# On a Specific Host with Privilege Escalation:
+ansible web01 -m ansible.builtin.yum -a "name=httpd state=present" -i inventory --become
+
+# On a Group of Hosts (e.g., "webservers") with Privilege Escalation:
+ansible webservers -m ansible.builtin.yum -a "name=httpd state=present" -i inventory --become
+
+# Enabling the Apache HTTP Server (`httpd`):
+
+# On a Specific Host with Privilege Escalation:
+ansible web01 -m ansible.builtin.service -a "name=httpd state=started enabled=yes" -i inventory --become
+
+# On a Group of Hosts (e.g., "webservers") with Privilege Escalation:
+ansible webservers -m ansible.builtin.service -a "name=httpd state=started enabled=yes" -i inventory --become
+
+# Copying a File to Remote Hosts (e.g., "index.html"):
+
+# On a Group of Hosts (e.g., "webservers") with Privilege Escalation:
+ansible webservers -m ansible.builtin.copy -a "src=local-index.html dest=/var/www/html/index.html" -i inventory --become
+
+# Changing Security Group Rules to Allow HTTP (Port 80) Traffic:
+
+# Command to Be Added Based on Your Specific Cloud Provider.
+
