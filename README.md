@@ -36,6 +36,7 @@ vi inventory
 
 # Edit the SSH private key file (typically named "webkey.pem").
 vim webkey.pem
+keep the pem key in exec folder itself
 
 # Check connectivity to the "web01" host using the updated configuration.
 ansible web01 -m ping -i inventory
