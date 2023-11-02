@@ -86,7 +86,7 @@ ansible all -m ping -i inventory
 ansible web01 -m ansible.builtin.yum -a "name=httpd state=present" -i inventory
 
 # On a Specific Host with Privilege Escalation:
-ansible web01 -m ansible.builtin.yum -a "name=httpd state=present" -i inventory --become
+ansible web01 -m ansible.builtin.yum -a "name=httpd state=present" -i inventoryhttps://github.com/mohammedsalmanj/ansiblesimpleautomation/tree/main --become
 
 # On a Group of Hosts (e.g., "webservers") with Privilege Escalation:
 ansible webservers -m ansible.builtin.yum -a "name=httpd state=present" -i inventory --become
@@ -107,4 +107,6 @@ ansible webservers -m ansible.builtin.copy -a "src=local-index.html dest=/var/ww
 # Changing Security Group Rules to Allow HTTP (Port 80) Traffic:
 
 # Command to Be Added Based on Your Specific Cloud Provider.
+#step to execute playbook
+#ansible-playbook -i inventory web-db.yaml
 
