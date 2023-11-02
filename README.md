@@ -110,3 +110,20 @@ ansible webservers -m ansible.builtin.copy -a "src=local-index.html dest=/var/ww
 #step to execute playbook
 #ansible-playbook -i inventory web-db.yaml
 
+
+#changed sg of webserver from anywhere http 80
+
+
+
+#Ansible Playbook Execution Commands
+
+#These commands are used to work with Ansible playbooks. Replace `web-db.yaml` with the actual name of your playbook.
+
+#ansible-playbook -i inventory web-db.yaml
+
+#RUN 
+#ansible-playbook -i inventory web-db.yaml -v
+#ansible-playbook -i inventory web-db.yaml --syntax-check
+#ansible-playbook -i inventory web-db.yaml -C
+
+
