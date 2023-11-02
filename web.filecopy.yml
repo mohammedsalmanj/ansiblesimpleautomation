@@ -1,0 +1,27 @@
+#copy file with owner and permissions 
+#src: files/index.html to dest: /var/www/html/index.html
+
+
+---
+- name: webserver setup
+  hosts: webservers
+  become: yes
+  tasks:
+    - name: Install httpd
+      ansible.builtin.yum:
+        name: httpd
+        state: present
+
+    - name: Start httpd service
+      ansible.builtin.service:
+        name: httpd
+        state: started
+        enabled: yes
+    - name: Copy file with owner and permissions
+      copy:
+        src: files/index.html
+        dest: /var/www/html/index.html
+        backup: yes
+
+
+
