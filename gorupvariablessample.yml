@@ -1,5 +1,5 @@
 
-
+#end for variable setup
 
 # cat vars_precedence.yaml create user in all env
 ---
@@ -63,8 +63,23 @@ cat vars_precedence.yaml
 
 cat group_vars/webservers
 
+# imp variable setup 
+
+USRNM: webgroup
+COMM: variable from group_vars/webserver file
+
+root@control:~/exercise9# cat group_vars/webservers
+
 
 
 USRNM: webgroup
 COMM: variable from group_vars/webserver file
+root@control:~/exercise9# cat group_vars/all
+
+
+USRNM: commonuser
+COMM: Variable from groupvars_all file
+root@control:~/exercise9# cat host_vars/web02
+USRNM: web02user
+COMM: variable from host_vars/web02 file
 
