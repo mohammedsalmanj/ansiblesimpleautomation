@@ -19,11 +19,11 @@ sudo apt install ansible
 # Test connectivity to all hosts.
 ansible all -m ping
 
-# Create a directory named "vprofile."
-mkdir vprofile
+# Create a directory named "myprfoile"
+mkdir myprofile
 
 # Change into the "vprofile" directory.
-cd vprofile/
+cd myprofile/
 
 # Create a subdirectory named "exercise1."
 mkdir exercise1
