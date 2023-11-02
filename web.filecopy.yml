@@ -1,5 +1,5 @@
 #copy file with owner and permissions 
-#src: files/index.html to dest: /var/www/html/index.html
+#src: files/index.html to dest: /var/www/html/index.html also allow backup old file
 
 
 ---
