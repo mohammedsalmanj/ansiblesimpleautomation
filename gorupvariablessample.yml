@@ -83,3 +83,6 @@ root@control:~/exercise9# cat host_vars/web02
 USRNM: web02user
 COMM: variable from host_vars/web02 file
 
+from command line itself
+# ansible-playbook -e USRNM=apple -e COMM=userios vars_precedence.yaml
+
