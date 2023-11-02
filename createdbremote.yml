@@ -25,10 +25,19 @@
 
 
     - name: Create a new database with name 'bobdata'
-      mysql_db:
+      community.mysql.mysql_db:
         name: bobdata
         state: present
         login_unix_socket: /var/lib/mysql/mysql.sock
+
+    - name: Create database user with name 'bob' and password '12345' with all database privileges
+      community.mysql.mysql_user:
+        name: bob
+        password: admin123
+        priv: '*.*:ALL'
+        state: present
+        login_unix_socket: /var/lib/mysql/mysql.sock
+
 
 
 #ansible-playbook -i inventory web-db.yaml
