@@ -1,0 +1,31 @@
+#######create log and setup config 
+
+#vim /etc/ansible/ansible.cfg    
+# This command opens the Ansible configuration file for editing using the Vim text editor.
+#cd exercise7                    
+ # Change the current directory to "exercise7."
+#vim ansible.cfg   
+
+[defaults]
+host_key_checking=False
+inventory = ./inventory
+forks = 5
+log_path = /var/log/ansible.log
+
+
+[privilege_escalation]
+become=True
+become_method=sudo
+become_ask_pass=False
+             
+ # Open the "ansible.cfg" file for editing in the current directory using Vim.
+#ansible-playbook                
+# This is an incomplete command. It is usually used to run an Ansible playbook, but no specific playbook is provided.
+#ansible-playbook db.yaml       
+ # This command runs an Ansible playbook named "db.yaml."
+#sudo chown ubuntu.ubuntu /var/log/ansible.log 
+ # Change the ownership of the "/var/log/ansible.log" file to the "ubuntu" user and group using sudo.
+#ansible-playbook db.yaml       
+ # This is a repetition of the command from line 262, running the "db.yaml" playbook.
+#cat /var/log/ansible.log        
+ # Display the contents of the "/var/log/ansible.log" file using the "cat" command.
