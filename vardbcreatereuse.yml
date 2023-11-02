@@ -1,0 +1,59 @@
+#using var db create for any user:# db work db.yaml -- install prereq python ---python3-PyMySQL.noarch and add socket file
+#variable in playbook based
+
+---
+- name: dbserver setup
+  hosts: dbservers
+  become: yes
+  vars:
+    dbname: baleno
+    dbuser: suzuki
+    dbpass: nexa
+  tasks:
+    - debug:
+        msg: "dbname is {{dbname}}"
+
+    - debug:
+        var: dbuser
+
+#use debug to print . echo like concept
+    - name: Install mariadb-server
+      ansible.builtin.yum:
+        name: mariadb-server
+        state: present
+
+    - name: Install pymysql
+      ansible.builtin.yum:
+        name: python3-PyMySQL
+        state: present
+
+    - name: Start mariadb service
+      ansible.builtin.service:
+        name: mariadb
+        state: started
+        enabled: yes
+
+
+    - name: Create a new database
+      community.mysql.mysql_db:
+        name: "{{dbname}}"
+        state: present
+        login_unix_socket: /var/lib/mysql/mysql.sock
+
+    - name: Create database user
+      community.mysql.mysql_user:
+        name: "{{dbname}}"
+        password: "{{dbpass}}"
+        priv: '*.*:ALL'
+        state: present
+        login_unix_socket: /var/lib/mysql/mysql.sock
+      register: dbout
+
+    - name: print dbout variable
+      debug:
+        var: dbout
+
+
+
+#ansible-playbook -i inventory web-db.yaml
+
