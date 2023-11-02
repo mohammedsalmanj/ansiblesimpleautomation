@@ -56,3 +56,15 @@ cat vars_precedence.yaml
 
     - debug:
         var: usrout.comment
+
+
+  #define in webservers
+
+
+cat group_vars/webservers
+
+
+
+USRNM: webgroup
+COMM: variable from group_vars/webserver file
+
