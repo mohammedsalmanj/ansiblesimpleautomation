@@ -40,6 +40,8 @@ keep the pem key in exec folder itself
 
 # Check connectivity to the "web01" host using the updated configuration.
 ansible web01 -m ping -i inventory
+chmod 400 webkey.pem
+
 
 # Display the contents of the Ansible configuration file.
 sudo cat /etc/ansible/ansible.cfg
