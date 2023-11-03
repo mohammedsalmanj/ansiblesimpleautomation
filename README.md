@@ -129,3 +129,7 @@ ansible webservers -m ansible.builtin.copy -a "src=local-index.html dest=/var/ww
 #ansible-playbook -i inventory web-db.yaml -C
 
 
+#####
+#ansible -i inventory -m setup web01
+
+
