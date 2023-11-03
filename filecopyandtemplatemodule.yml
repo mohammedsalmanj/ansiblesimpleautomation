@@ -1,0 +1,128 @@
+#### file/copt/template module
+
+:~/profile/exercise5# cat box.yaml
+- name: Provisioning servers
+  hosts: all
+  become: yes
+  tasks:
+    - name: Install NTP agent on CentOS
+      yum:
+        name: "{{ item }}"
+        state: present
+      when: ansible_distribution == "CentOS"
+      loop:
+        - chrony
+        - wget
+        - git
+        - zip
+        - unzip
+
+    - name: Install NTP agent on Ubuntu
+      apt:
+        name: "{{ item }}"
+        state: present
+        update_cache: yes
+      when: ansible_distribution == "Ubuntu"
+      loop:
+        - ntp
+        - wget
+        - git
+        - zip
+        - unzip
+
+    - name: Start service on CentOS
+      service:
+        name: chronyd
+        state: started
+        enabled: yes
+      when: ansible_distribution == "CentOS"
+
+    - name: Start service on Ubuntu
+      service:
+        name: ntp
+        state: started
+        enabled: yes
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Deploy ntp agent conf on CentOS
+      template:
+        src: "templates/ntpconf_centos"  # Removed leading '/'
+        dest: /etc/chrony.conf
+        backup: yes
+      when: ansible_distribution == "CentOS"
+
+    - name: Deploy ntp agent conf on Ubuntu
+      template:
+        src: "templates/ntpconf_ubuntu"  # Removed leading '/'
+        dest: /etc/ntp.conf
+        backup: yes
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Restart service on CentOS
+      service:
+        name: chronyd
+        state: restarted
+        enabled: yes
+      when: ansible_distribution == "CentOS"
+
+    - name: Restart service on Ubuntu
+      service:
+        name: ntp
+        state: restarted
+        enabled: yes
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Create a folder
+      file:
+        path: /opt/testing
+        state: directory
+
+
+##ls templates/
+ntpconf_centos  ntpconf_ubuntu
+
+#Inventory
+all:
+  hosts:
+    web01:
+      ansible_host: 172.31.29.13
+      ansible_user: ec2-user
+      ansible_ssh_private_key_file: webkey.pem
+    web02:
+      ansible_host: 172.31.27.48
+      ansible_user: ec2-user
+      ansible_ssh_private_key_file: webkey.pem
+    web03:
+      ansible_host: 172.31.25.80
+      ansible_user: ubuntu
+      ansible_ssh_private_key_file: webkey.pem
+    db01:
+      ansible_host: 172.31.24.27
+      ansible_user: ec2-user
+      ansible_ssh_private_key_file: webkey.pem
+  children:
+    webservers:
+      hosts:
+        web01:
+        web02:
+        web03:
+    dbservers:
+      hosts:
+        db01:
+    dc_oregon:
+      children:
+        webservers:
+        dbservers:
+      vars:
+        ansible_user: ec2-user
+        ansible_ssh_private_key_file: webkey.pem
+
+
+####
+/profile/exercise5# cat group_vars/all
+USRNM: commonuser
+COMM: Variable from groupvars_all file
+ntp0: 0.north-america.pool.ntp.org
+ntp1: 1.north-america.pool.ntp.org
+ntp2: 2.north-america.pool.ntp.org
+ntp3: 3.north-america.pool.ntp.org
