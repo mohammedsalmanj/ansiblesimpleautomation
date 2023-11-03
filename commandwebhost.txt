@@ -1,0 +1,85 @@
+ history
+    1  sudo add-apt-repository --yes --update ppa:ansible/ansible
+    2  sudo apt update
+    3  sudo apt install ansible
+    4  ansible all -m ping
+    5  mkdir profile
+    6  cd exercide
+    7  cd exercise1
+    8  mkdir exercise1
+    9  ls
+   10  cd profile/
+   11  ls
+   12  mkdir exercise1
+   13  ls
+   14  cd exercise1/
+   15  ls
+   16  vi inventory
+   17  ansible all -m ping
+   18  vi inventory
+   19  ansible all -m ping
+   20  vi webkey.pem
+   21  ansible all -m ping
+   22  ls -l
+   23  vi inventory
+   24  ansible all -m ping -i inventory
+   25  cd profile/exercise1/
+   26  ls
+   27  ansible webservers -m ping -i inventory
+   28  cd profile/exercise1/
+   29  la
+   30  ls
+   31  ansible all -m ping -i inventory
+   32  vi webkey.pem
+   33  ansible all -m ping -i inventory
+   34  vi webkey.pem
+   35  vi inventory
+   36  ansible web01 -m ping -i inventory
+   37  chmod 400 webkey.pem
+   38  ansible web01 -m ping -i inventory
+   39  sudo cat /etc/ansible/ansible.cfg
+   40  mv /etc/ansible/ansible.cfg /etc/ansible/ansible.cfg_backup
+   41  ansible-config init --disabled -t all > /etc/ansible/ansible.cfg
+   42  vim /etc/ansible/ansible.cfg
+   43  sudo -i
+   44  cd profile/exercise1/
+   45  ls
+   46  ansible web01 -m ping -i inventory
+   47  ansible all -m ping -i inventory
+   48  nano ~/.ssh/known_hosts
+   49  vi inventory
+   50  vi webkey.pem
+   51  ansible web02 -m ping -i inventory
+   52  ansible db02 01-m ping -i inventory
+   53  ansible db01 -m ping -i inventory
+   54  cd
+   55  ls
+   56  cd /etc/ansible/
+   57  l
+   58  ls
+   59  cat ansible.cfg
+   60  vi ansible.cfg
+   61  cd
+   62  cd profile/exercise1/
+   63  ls
+   64  ansible web01 -m ping -i inventory
+   65  ansible all -m ping -i inventory
+   66  vi index.html
+   67  vi web.yaml
+   68  ansible playbook web.yaml
+   69  ansible-playbook -i inventory web.yaml
+   70  ansible webservers -m ansible.builtin.copy -a "src=local-index.html dest=/var/www/html/index.html" -i inventory --become
+   71  ls
+   72  vi web
+   73  vi web.yaml
+   74  mkdir files
+   75  cd files/
+   76  vi index.html
+   77  cd ..
+   78  ansible-playbook -i inventory web.yaml
+   79  vi web.yaml
+   80  cat files/index.html
+   81  ansible-playbook -i inventory web.yaml
+   82  vi web.yaml
+   83  ansible-playbook -i inventory web.yaml
+   84  cat web.yaml
