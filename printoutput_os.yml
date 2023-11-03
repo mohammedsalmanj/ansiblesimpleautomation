@@ -1,0 +1,90 @@
+
+#printfact
+cat print_facts.yaml
+
+---
+
+- name: print facts
+  hosts: all
+  tasks:
+    - name: Print OS name
+      debug:
+        var: ansible_distribution
+
+    - name: Print Processor name
+      debug:
+        var: ansible_processor[2]
+
+    - name: Print RAM memory
+      debug:
+        var: ansible_memory_mb.real.free
+
+
+
+
+#sample_output
+
+TASK [Print OS name] *********************************************************************************************************************************************************************************************
+ok: [web01] => {
+    "ansible_distribution": "CentOS"
+}
+ok: [web02] => {
+    "ansible_distribution": "CentOS"
+}
+ok: [db01] => {
+    "ansible_distribution": "CentOS"
+
+
+
+ansible-playbook -i inventory print_facts.yaml
+
+PLAY [print facts] ***********************************************************************************************************************************************************************************************
+
+TASK [Gathering Facts] *******************************************************************************************************************************************************************************************
+ok: [web01]
+ok: [web03]
+ok: [db01]
+ok: [web02]
+
+TASK [Print OS name] *********************************************************************************************************************************************************************************************
+ok: [web01] => {
+    "ansible_distribution": "CentOS"
+}
+ok: [web02] => {
+    "ansible_distribution": "CentOS"
+}
+ok: [web03] => {
+    "ansible_distribution": "Ubuntu"
+}
+ok: [db01] => {
+    "ansible_distribution": "CentOS"
+}
+
+TASK [Print Processor name] **************************************************************************************************************************************************************************************
+ok: [web01] => {
+    "ansible_processor[2]": "Intel(R) Xeon(R) CPU E5-2676 v3 @ 2.40GHz"
+}
+ok: [web02] => {
+    "ansible_processor[2]": "Intel(R) Xeon(R) CPU E5-2676 v3 @ 2.40GHz"
+}
+ok: [web03] => {
+    "ansible_processor[2]": "Intel(R) Xeon(R) CPU E5-2676 v3 @ 2.40GHz"
+}
+ok: [db01] => {
+    "ansible_processor[2]": "Intel(R) Xeon(R) CPU E5-2676 v3 @ 2.40GHz"
+}
+
+TASK [Print RAM memory] ******************************************************************************************************************************************************************************************
+ok: [web01] => {
+    "ansible_memory_mb.real.free": "243"
+}
+ok: [web02] => {
+    "ansible_memory_mb.real.free": "244"
+}
+ok: [web03] => {
+    "ansible_memory_mb.real.free": "292"
+}
+ok: [db01] => {
+    "ansible_memory_mb.real.free": "79"
+}
+
