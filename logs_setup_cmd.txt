@@ -1,5 +1,6 @@
 #######create log and setup config 
 
+
 #vim /etc/ansible/ansible.cfg    
 # This command opens the Ansible configuration file for editing using the Vim text editor.
 #cd exercise7                    
@@ -17,6 +18,28 @@ log_path = /var/log/ansible.log
 become=True
 become_method=sudo
 become_ask_pass=False
+
+# Disable host key checking for SSH connections.
+host_key_checking = False
+
+# Specify the path to the Ansible inventory file.
+inventory = ./inventory
+
+# Set the number of parallel processes for task execution.
+forks = 5
+
+# Specify the path to the Ansible log file for recording logs.
+log_path = /var/log/ansible.log
+
+# Privilege escalation settings for tasks requiring elevated privileges.
+[privilege_escalation]
+# Enable privilege escalation.
+become = True
+# Specify the privilege escalation method (sudo).
+become_method = sudo
+# Disable prompting for a password during privilege escalation.
+become_ask_pass = False
+
              
  # Open the "ansible.cfg" file for editing in the current directory using Vim.
 #ansible-playbook                
