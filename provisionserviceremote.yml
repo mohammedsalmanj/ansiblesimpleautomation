@@ -1,0 +1,102 @@
+
+### install / provision service on remote
+
+---
+- name: Provisioning servers
+  hosts: all
+  become: yes
+  tasks:
+    - name: Install NTP agent on CentOS
+      yum:
+        name: chrony
+        state: present
+      when: ansible_distribution == "CentOS"
+
+    - name: Install NTP agent on Ubuntu
+      apt:
+        name: ntp
+        state: present
+        update_cache: yes
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Start service on CentOS
+      service:
+        name: chronyd
+        state: started
+        enabled: yes
+      when: ansible_distribution == "CentOS"
+
+    - name: start service on Ubuntu
+      service:
+        name: ntp
+        state: started
+        enabled: yes
+      when: ansible_distribution == "Ubuntu"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+####### output####
+
+profile/exercise2# ansible-playbook -i inventory provisioning.yaml
+
+PLAY [Provisioning servers] **************************************************************************************************************************************************************************************
+
+TASK [Gathering Facts] *******************************************************************************************************************************************************************************************
+ok: [web01]
+ok: [db01]
+ok: [web02]
+ok: [web03]
+
+TASK [Install NTP agent on CentOS] *******************************************************************************************************************************************************************************
+skipping: [web03]
+ok: [web01]
+ok: [db01]
+ok: [web02]
+
+TASK [Install NTP agent on Ubuntu] *******************************************************************************************************************************************************************************
+skipping: [web01]
+skipping: [web02]
+skipping: [db01]
+changed: [web03]
+
+TASK [Start service on CentOS] ***********************************************************************************************************************************************************************************
+skipping: [web03]
+ok: [db01]
+ok: [web01]
+ok: [web02]
+
+TASK [start service on Ubuntu] ***********************************************************************************************************************************************************************************
+skipping: [web01]
+skipping: [web02]
+skipping: [db01]
+ok: [web03]
+
+PLAY RECAP *******************************************************************************************************************************************************************************************************
+db01                       : ok=3    changed=0    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
+web01                      : ok=3    changed=0    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
+web02                      : ok=3    changed=0    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
+web03                      : ok=3    changed=1    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
+ 
